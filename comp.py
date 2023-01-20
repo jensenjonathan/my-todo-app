@@ -34,13 +34,11 @@ class Complex:
 
 '''The above functions define basic math operations for basic aritmetic
 operations. Automatically implemented when using complex types.'''
-resistance = float(input('Enter resistance: '))
 voltage = float(input('Enter voltage: '))
 capacitance = float(input('Enter capacitance: '))
 inductance = float(input('Enter inductance: '))
 
-
-impedance = np.zeros(199)
+'''impedance = np.zeros(199)
 phase = np.zeros(199)
 lplot = np.zeros(199)
 for index, x in enumerate(np.arange(0.01, 2, 0.01)):
@@ -60,14 +58,24 @@ plt.plot(lplot, phase, lw = 1, c = 'b')
 plt.xlim([0, 2])
 plt.xlabel('Frequency');   plt.ylabel('Phase')
 plt.grid(True)
+plt.show()'''
+
+
+def f(resistance, impedance):
+    return voltage / Complex.modl(Complex(resistance,
+                                          1 / (impedance * capacitance) - impedance * inductance))
+
+
+x2 = np.linspace(0.01, 2, 50)
+y2 = np.linspace(0.01, 2, 50)
+
+X, Y = np.meshgrid(x2, y2)
+Z = f(X, Y)  # Z has to take meshgrid as an argument
+
+fig = plt.figure(2)
+ax = plt.axes(projection='3d')
+ax.plot_surface(X, Y, Z, color='green')
+ax.set_title('Current Magnitude')
+plt.xlabel('Resistance')
+plt.ylabel('Frequency')
 plt.show()
-
-
-
-
-
-
-
-
-
-
